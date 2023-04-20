@@ -1,13 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from accountapp.forms import CustomUserCreationForm
 from accountapp.models import CustomUser
 
@@ -19,6 +16,8 @@ from accountapp.models import CustomUser
 
 class HomeView(TemplateView):
     template_name = 'main.html'
+
+
 class UserCreateView(CreateView):
     model = CustomUser
     form_class = CustomUserCreationForm
@@ -31,6 +30,7 @@ class UserCreateView(CreateView):
             return HttpResponseRedirect(reverse_lazy('accountapp:login'))
 
         return super().dispatch(request, *args, **kwargs)
+
 
 class UserDetailView(DetailView):
     model = CustomUser
