@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, TemplateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from accountapp.forms import CustomUserCreationForm
 from accountapp.models import CustomUser
 
@@ -30,10 +30,12 @@ class UserCreateView(CreateView):
             return redirect('home')
         return super().dispatch(request, *args, **kwargs)
 
+
 class UserDetailView(DetailView):
     model = CustomUser
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
+
 
 class CustomLoginView(LoginView):
     def dispatch(self, request, *args, **kwargs):
@@ -41,10 +43,6 @@ class CustomLoginView(LoginView):
             return redirect('home')
         return super().dispatch(request, *args, **kwargs)
 
-from django.http import HttpResponseRedirect
-from django.contrib.auth.views import LogoutView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
 
 class CustomLogoutView(LoginRequiredMixin, LogoutView):
     login_url = reverse_lazy('accountapp:login')
