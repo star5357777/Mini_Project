@@ -1,3 +1,4 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView
@@ -30,6 +31,13 @@ class ProfileUpdateView(UpdateView):
     context_object_name = 'target_profile'
     form_class = ProfileCreationForm
     template_name = 'profileapp/update.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        user = self.object.user
+        if not user == request.user:
+            return HttpResponseForbidden()
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('accountapp:detail', kwargs={'pk':self.object.user.pk})
