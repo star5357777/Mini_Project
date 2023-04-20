@@ -45,7 +45,7 @@ class CustomLoginView(LoginView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class CustomLogoutView(LoginRequiredMixin, LogoutView):
+class CustomLogoutView(LogoutView):
     login_url = reverse_lazy('accountapp:login')
 
     def dispatch(self, request, *args, **kwargs):
