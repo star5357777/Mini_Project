@@ -3,10 +3,10 @@
 {% block content %}
     {% if user.is_authenticated %}
         {% if target_user.profile %}
-            <p>{{ target_user.profile.nickname }}</p>
+            <p><strong>User NickName</strong>: {{ target_user.profile.nickname }}</p>
             <img src="{{ target_user.profile.image.url }}" alt=""/>
-            <p>{{ target_user.profile.message }}</p>
-            <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}">Update</a>
+            <p><strong>User Message</strong>: {{ target_user.profile.message }}</p>
+            <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}">Update Profile</a>
         {% else %}
             <a href="{% url 'profileapp:create' %}">Create</a>
         {% endif %}
