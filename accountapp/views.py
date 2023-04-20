@@ -40,3 +40,20 @@ class CustomLoginView(LoginView):
         if request.user.is_authenticated:
             return redirect('home')
         return super().dispatch(request, *args, **kwargs)
+
+from django.http import HttpResponseRedirect
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+
+class CustomLogoutView(LoginRequiredMixin, LogoutView):
+    login_url = reverse_lazy('accountapp:login')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(self.login_url)
+
+        if request.method == 'GET':
+            return HttpResponseRedirect(self.login_url)
+
+        return super().dispatch(request, *args, **kwargs)
