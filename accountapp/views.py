@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, TemplateView
 
-
-
+from accountapp.forms import CustomUserCreationForm
+from accountapp.models import CustomUser
 
 
 # Create your views here.
@@ -18,12 +18,12 @@ from django.views.generic import CreateView, DetailView, TemplateView
 class HomeView(TemplateView):
     template_name = 'main.html'
 class UserCreateView(CreateView):
-    model = User
-    form_class = UserCreationForm
+    model = CustomUser
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy('home')
     template_name = 'accountapp/create.html'
 
 class UserDetailView(DetailView):
-    model = User
+    model = CustomUser
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
