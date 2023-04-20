@@ -1,5 +1,5 @@
 from django.http import HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView
 
@@ -35,8 +35,8 @@ class ProfileUpdateView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         user = self.object.user
-        if not user == request.user:
-            return HttpResponseForbidden()
+        if request.method == 'GET' and not user == request.user:
+            return redirect('home')
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
