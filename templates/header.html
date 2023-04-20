@@ -7,17 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-            {% if not user.is_authenticated %}
-                {% if request.resolver_match.url_name == 'create' %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                {% else %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'accountapp:create' %}">Sign Up <span class="sr-only">(current)</span></a>
-                    </li>
-                {% endif %}
-            {% else %}
+            {% if user.is_authenticated %}
                 {% if request.resolver_match.url_name == 'detail' %}
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
@@ -58,9 +48,19 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="text-decoration:none;">Sign Out</button>
             </form>
         {% else %}
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                <a href="{% url 'accountapp:login' %}" style="text-decoration:none; color:inherit;">Sign In</a>
-            </button>
+            {% if request.resolver_match.url_name == 'login' %}
+                <form method="post" action="{% url 'accountapp:create' %}" class="form-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="text-decoration:none;">Sign Up</button>
+                </form>
+            {% else %}
+                <form method="post" action="{% url 'accountapp:create' %}" class="form-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="text-decoration:none;">
+                        <a href="{% url 'home' %}" style="text-decoration:none; color:inherit;">Home</a>
+                    </button>
+                </form>
+            {% endif %}
         {% endif %}
     </div>
 </nav>

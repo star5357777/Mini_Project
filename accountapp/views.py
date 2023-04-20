@@ -25,11 +25,12 @@ class UserCreateView(CreateView):
     success_url = reverse_lazy('home')
     template_name = 'accountapp/create.html'
 
+    login_url = reverse_lazy('accountapp:login')
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('home')
-        return super().dispatch(request, *args, **kwargs)
+        if request.method == 'GET':
+            return HttpResponseRedirect(reverse_lazy('accountapp:login'))
 
+        return super().dispatch(request, *args, **kwargs)
 
 class UserDetailView(DetailView):
     model = CustomUser
