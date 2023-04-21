@@ -4,6 +4,9 @@
     <div class="container" style="background-color:pink;">
         <div class="profile_img" style="padding-top:2rem; margin: 4rem auto; text-align:center;">
             <img src="{{ target_user.profile.image.url }}" alt="" style="height: 10rem; width: 10rem; border-radius: 20rem; margin-bottom: 2rem;"/>
+            <p style="position:relative; bottom:1rem; font-family: 'Titillium Web', sans-serif;">{{ target_user.profile.nickname }}</p>
+            <p style="position:relative; bottom:1rem; font-family: 'Titillium Web', sans-serif;">{{ target_user.profile.message }}</p>
+            <a class="btn btn-outline-primary" href="{% url 'profileapp:update' pk=target_user.profile.pk %}">Update</a>
         </div>
     </div>
 {% endblock %}

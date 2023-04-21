@@ -40,7 +40,7 @@ class ProfileUpdateView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         user = self.object.user
-        if request.method == 'GET' and not user == request.user:
+        if not user == request.user:
             return redirect('home')
         return super().dispatch(request, *args, **kwargs)
 
