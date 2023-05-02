@@ -1,0 +1,30 @@
+<html lang = "ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+</head>
+<body>
+<div>
+    <form method="post" action=".">
+        {% csrf_token %}
+        안녕 로그인
+    <p>  <input id="Username" type="text" name="Username" placeholder="사용자 이름" required></p>
+<!--        type을 password로 해야 동그라미 형식으로 보임-->
+    <p>  <input id="password" type="password" name="password" placeholder="비밀번호" required></p>
+<!--        에러 메시지 나오게 하는 블럭 -->
+        <div class="row">
+                        <div class="col-12">
+<!--            메시지 res 어떤거 error 나오는지-->
+                            {{ error }}
+                        </div>
+         </div>
+    <p> <input type = "submit" value="로그인"> </p>
+        <button type = "button" onclick ="location.href='sign' ">회원가입 버튼 </button>
+
+<!--    </form>-->
+</form>
+
+</div>
+
+</body>
+</html>
