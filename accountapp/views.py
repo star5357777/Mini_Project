@@ -19,10 +19,13 @@ def main(request):
               try:
                   # db를 지정해주니까 갈 수 있는듯
                   User =  account.objects.get(Username = Username)
-              except User.DoesNotExist:
-              #except User.DoesNotExist:
+              #일치 하지 않을 때 항목
+              except account.DoesNotExist:
+
                res_data['error'] = '사용자 아이디가 없음'
-               return
+                #return을 해줘야 페이지가 보임
+               return render(request, "main.html", res_data)
+
 
               if not bcrypt.checkpw(wcpassword.encode('utf-8'), User.password.encode("utf-8")):
                    res_data['error'] = '사용자 비밀번호가 틀림'
