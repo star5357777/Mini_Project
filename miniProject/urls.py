@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from accountapp import views
+# 2개의 앱을 할 때는 이렇게 as로 별명짓듯이 함
+from accountapp import views as account
+from boardapp import views as board
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.main, name = 'main-page'),
-    path('sign/', views.signup, name = 'sign-up'),
+    path('', account.main, name = 'main-page'),
+    path('sign/', account.signup, name = 'sign-up'),
+    path('board/', board.board_main, name = 'board-main'),
 ]
