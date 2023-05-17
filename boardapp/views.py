@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from .models import Post
 # Create your views here.
 def board_main(request):
-    return render(request, 'board.html')
+    Postlist = Post.objects.all()
+    return render(request, 'board.html', {'postlist':Postlist})

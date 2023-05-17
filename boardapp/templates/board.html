@@ -21,6 +21,16 @@
          </tr>
      </table>
 
+        <table>
+<!--            db에서 포스트 리스트를 가져옴-->
+            {% for list in Postlist %}
+            <ul>
+                <li>{{list.Postname}}</li>
+                <li>{{list.contents}}</li>
+            </ul>
+           {% endfor %}
+        </table>
+
 <!--    </form>-->
 </form>
 
